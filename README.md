@@ -1,2 +1,2 @@
 # RevitAPIToolbox
-A library containing some extension classes for Revit API developing
+A library containing some helping classes for Revit API developing
