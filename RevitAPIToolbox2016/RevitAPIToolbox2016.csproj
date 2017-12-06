@@ -51,6 +51,14 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>C:\Program Files\Autodesk\Revit 2016\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>C:\Program Files\Autodesk\Revit 2016\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,14 +68,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\revitapitoolbox\attributes\TargetTypeAttribute.cs">
+      <Link>Attributes\TargetTypeAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\revitapitoolbox\common\EnumerableExtension.cs">
       <Link>Common\EnumerableExtension.cs</Link>
     </Compile>
     <Compile Include="..\revitapitoolbox\common\ExternalEventManager.cs">
       <Link>Common\ExternalEventManager.cs</Link>
     </Compile>
+    <Compile Include="..\RevitAPIToolbox\Common\Int32Extension.cs">
+      <Link>Common\Int32Extension.cs</Link>
+    </Compile>
     <Compile Include="..\revitapitoolbox\common\ParameterizedExternalEventHandler.cs">
       <Link>Common\ParameterizedExternalEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Database\CurveExtension.cs">
+      <Link>Database\CurveExtension.cs</Link>
     </Compile>
     <Compile Include="..\revitapitoolbox\database\DocumentExtension.cs">
       <Link>Database\DocumentExtension.cs</Link>
@@ -80,6 +97,18 @@
     </Compile>
     <Compile Include="..\revitapitoolbox\database\ViewExtension.cs">
       <Link>Database\ViewExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Database\XYZExtension.cs">
+      <Link>Database\XYZExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\implementations\curvedivide\ControlledCurveDivider.cs">
+      <Link>Implementations\CurveDivide\ControlledCurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\implementations\curvedivide\CurveDivider.cs">
+      <Link>Implementations\CurveDivide\CurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\implementations\curvedivide\ICurveDivider.cs">
+      <Link>Implementations\CurveDivide\ICurveDivider.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
