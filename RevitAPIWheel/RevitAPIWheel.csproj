@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A64D10E-577C-456A-990D-E5AE631359D1}</ProjectGuid>
+    <ProjectGuid>{EAE03093-34EF-4159-884A-8E7D00556AB0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Techyard.Revit</RootNamespace>
-    <AssemblyName>RevitAPIExtensions</AssemblyName>
+    <RootNamespace>Techyard.Revit.Wheel</RootNamespace>
+    <AssemblyName>RevitAPIWheel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,24 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="RevitAPI">
       <HintPath>C:\Program Files\Autodesk\Revit 2014\RevitAPI.dll</HintPath>
@@ -65,24 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\TargetTypeAttribute.cs" />
-    <Compile Include="Common\EnumerableExtension.cs" />
-    <Compile Include="Common\ExternalEventManager.cs" />
-    <Compile Include="Common\Int32Extension.cs" />
-    <Compile Include="Common\ParameterizedExternalEventHandler.cs" />
-    <Compile Include="Database\CurveExtension.cs" />
-    <Compile Include="Database\DocumentExtension.cs" />
-    <Compile Include="Database\FamilyExtension.cs" />
-    <Compile Include="Database\PlaneExtension.cs" />
-    <Compile Include="Database\ViewExtension.cs" />
-    <Compile Include="Database\XYZExtension.cs" />
-    <Compile Include="Implementations\CurveDivide\ControlledCurveDivider.cs" />
-    <Compile Include="Implementations\CurveDivide\CurveDivider.cs" />
-    <Compile Include="Implementations\CurveDivide\ICurveDivider.cs" />
+    <Compile Include="ExternalEvent\App.cs" />
+    <Compile Include="ExternalEvent\ExternalEventHandlerDemo.cs" />
+    <Compile Include="ExternalEvent\Command.cs" />
+    <Compile Include="ExternalEvent\IExternalEventHandlerWheel.cs" />
+    <Compile Include="ExternalEvent\ExternalEventWheel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\" />
+    <Content Include="RevitAPIWheel.addin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

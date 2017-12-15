@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Assembly>RevitAPIWheel.dll</Assembly>
+    <ClientId>76308EFB-28B3-4742-BB7B-22B96DCFCB56</ClientId>
+    <FullClassName>Techyard.Revit.Wheel.ExternalEvent.App</FullClassName>
+    <Name>ExternalEventApp</Name>
+    <VendorId>Kennan</VendorId>
+    <VendorDescription>Kennan</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Assembly>RevitAPIWheel.dll</Assembly>
+    <ClientId>31758EBB-28EC-47E7-B7C9-EA3577D035E1</ClientId>
+    <FullClassName>Techyard.Revit.Wheel.ExternalEvent.Command</FullClassName>
+    <Text>ExternalEventDemo</Text>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <LanguageType>Unknown</LanguageType>
+    <VendorId>Kennan</VendorId>
+    <VendorDescription>Kennan</VendorDescription>
+  </AddIn>
+</RevitAddIns>
