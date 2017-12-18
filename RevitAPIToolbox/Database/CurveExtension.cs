@@ -8,7 +8,7 @@ namespace Techyard.Revit.Database
     {
         public static IEnumerable<XYZ> EquallyDivideByInterpolation(this Curve curve, int divideNum)
         {
-            return CurveDivider.GetDivider(curve.GetType()).Divide(curve, divideNum);
+            return CurveDivider.GetDivider(curve.GetType()).EquallyDivide(curve, divideNum);
         }
     }
 }

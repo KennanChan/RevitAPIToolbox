@@ -6,6 +6,5 @@ namespace Techyard.Revit.Implementations.CurveDivide
     internal interface ICurveDivider
     {
         IEnumerable<XYZ> EquallyDivide(Curve curve, int number);
-        XYZ 
     }
 }
