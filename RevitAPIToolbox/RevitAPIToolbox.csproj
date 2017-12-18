@@ -76,9 +76,9 @@
     <Compile Include="Database\PlaneExtension.cs" />
     <Compile Include="Database\ViewExtension.cs" />
     <Compile Include="Database\XYZExtension.cs" />
-    <Compile Include="Implementations\CurveDivide\ControlledCurveDivider.cs" />
-    <Compile Include="Implementations\CurveDivide\CurveDivider.cs" />
-    <Compile Include="Implementations\CurveDivide\ICurveDivider.cs" />
+    <Compile Include="Misc\CurveDivide\ControlledCurveDivider.cs" />
+    <Compile Include="Misc\CurveDivide\CurveDivider.cs" />
+    <Compile Include="Misc\CurveDivide\ICurveDivider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

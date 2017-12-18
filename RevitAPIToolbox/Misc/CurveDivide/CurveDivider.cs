@@ -7,18 +7,18 @@ using Autodesk.Revit.DB;
 using Techyard.Revit.Attributes;
 using Techyard.Revit.Common;
 
-namespace Techyard.Revit.Implementations.CurveDivide
+namespace Techyard.Revit.Misc.CurveDivide
 {
     [TargetType(typeof(Line), typeof(Arc))]
     internal class CurveDivider
     {
+        private static IDictionary<Type, ICurveDivider> Dividers { get; } =
+            new ConcurrentDictionary<Type, ICurveDivider>();
+
         internal virtual IEnumerable<XYZ> Divide(Curve curve, int number)
         {
             return number.TraverseFrom(1, x => curve.Evaluate(1D / x, true)).ToList();
         }
-
-        private static IDictionary<Type, ICurveDivider> Dividers { get; } =
-            new ConcurrentDictionary<Type, ICurveDivider>();
 
         internal static ICurveDivider GetDivider(Type curveType)
         {

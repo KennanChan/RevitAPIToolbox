@@ -4,7 +4,7 @@ using Autodesk.Revit.DB;
 using Techyard.Revit.Attributes;
 using Techyard.Revit.Database;
 
-namespace Techyard.Revit.Implementations.CurveDivide
+namespace Techyard.Revit.Misc.CurveDivide
 {
     [TargetType(typeof(HermiteSpline), typeof(NurbSpline), typeof(CylindricalHelix), typeof(Ellipse))]
     internal class ControlledCurveDivider : CurveDivider

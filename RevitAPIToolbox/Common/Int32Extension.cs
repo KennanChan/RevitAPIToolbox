@@ -9,18 +9,14 @@ namespace Techyard.Revit.Common
         {
             var value = from;
             while (value < number)
-            {
                 handler?.Invoke(value++);
-            }
         }
 
         public static IEnumerable<T> TraverseFrom<T>(this int number, int from, Func<int, T> handler) where T : class
         {
             var value = from;
             while (value <= number)
-            {
                 yield return handler?.Invoke(value++);
-            }
         }
     }
 }

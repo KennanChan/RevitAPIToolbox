@@ -8,7 +8,6 @@ namespace Techyard.Revit.Common
     {
         private ExternalEventManager()
         {
-
         }
 
         private IDictionary<Type, ExternalEventPair> Events { get; } =

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Autodesk.Revit.DB;
-using Techyard.Revit.Implementations.CurveDivide;
+using Techyard.Revit.Misc.CurveDivide;
 
 namespace Techyard.Revit.Database
 {
