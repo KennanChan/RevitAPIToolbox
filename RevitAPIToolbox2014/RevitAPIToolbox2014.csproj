@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Techyard.Revit</RootNamespace>
-    <AssemblyName>RevitAPIToolbox2014</AssemblyName>
+    <AssemblyName>RevitAPIToolbox</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,11 +49,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RevitAPI">
-      <HintPath>C:\Program Files\Autodesk\Revit 2014\RevitAPI.dll</HintPath>
+      <HintPath>..\..\..\Program Files\Autodesk\Revit 2014\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>C:\Program Files\Autodesk\Revit 2014\RevitAPIUI.dll</HintPath>
+      <HintPath>..\..\..\Program Files\Autodesk\Revit 2014\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\RevitAPIToolbox\Attributes\SchemaAttribute.cs">
+      <Link>Attributes\SchemaAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Attributes\SchemaFieldAttribute.cs">
+      <Link>Attributes\SchemaFieldAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\RevitAPIToolbox\Attributes\TargetTypeAttribute.cs">
       <Link>Attributes\TargetTypeAttribute.cs</Link>
     </Compile>
@@ -89,6 +95,9 @@
     <Compile Include="..\RevitAPIToolbox\Database\DocumentExtension.cs">
       <Link>Database\DocumentExtension.cs</Link>
     </Compile>
+    <Compile Include="..\RevitAPIToolbox\Database\ElementExtension.cs">
+      <Link>Database\ElementExtension.cs</Link>
+    </Compile>
     <Compile Include="..\RevitAPIToolbox\Database\FamilyExtension.cs">
       <Link>Database\FamilyExtension.cs</Link>
     </Compile>
@@ -101,19 +110,41 @@
     <Compile Include="..\RevitAPIToolbox\Database\XYZExtension.cs">
       <Link>Database\XYZExtension.cs</Link>
     </Compile>
-    <Compile Include="..\RevitAPIToolbox\Implementations\CurveDivide\ControlledCurveDivider.cs">
-      <Link>Implementations\CurveDivide\ControlledCurveDivider.cs</Link>
+    <Compile Include="..\RevitAPIToolbox\Exceptions\SchemaNotDefinedWithAttributeException.cs">
+      <Link>Exceptions\SchemaNotDefinedWithAttributeException.cs</Link>
     </Compile>
-    <Compile Include="..\RevitAPIToolbox\Implementations\CurveDivide\CurveDivider.cs">
-      <Link>Implementations\CurveDivide\CurveDivider.cs</Link>
+    <Compile Include="..\RevitAPIToolbox\Geometry\FilteredGeometryCollector.cs">
+      <Link>Geometry\FilteredGeometryCollector.cs</Link>
     </Compile>
-    <Compile Include="..\RevitAPIToolbox\Implementations\CurveDivide\ICurveDivider.cs">
-      <Link>Implementations\CurveDivide\ICurveDivider.cs</Link>
+    <Compile Include="..\RevitAPIToolbox\Geometry\GeometryClassFilter.cs">
+      <Link>Geometry\GeometryClassFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Geometry\GeometryElementExtension.cs">
+      <Link>Geometry\GeometryElementExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Geometry\GeometryInstanceExtension.cs">
+      <Link>Geometry\GeometryInstanceExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Geometry\IGeometryFilter.cs">
+      <Link>Geometry\IGeometryFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\CurveDivide\ControlledCurveDivider.cs">
+      <Link>Misc\CurveDivide\ControlledCurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\CurveDivide\CurveDivider.cs">
+      <Link>Misc\CurveDivide\CurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\CurveDivide\ICurveDivider.cs">
+      <Link>Misc\CurveDivide\ICurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\SchemaDesigner\SchemaBase.cs">
+      <Link>Misc\SchemaDesigner\SchemaBase.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\UI\SelectionExtension.cs">
+      <Link>UI\SelectionExtension.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

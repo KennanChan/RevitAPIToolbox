@@ -6,6 +6,5 @@ namespace Techyard.Revit.Attributes
     public class SchemaFieldAttribute : Attribute
     {
         public string Name { get; set; }
-        public Type DataType { get; set; }
     }
 }

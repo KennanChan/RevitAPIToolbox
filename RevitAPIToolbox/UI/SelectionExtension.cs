@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI.Selection;
-using Techyard.Revit.Database;
 
 namespace Techyard.Revit.UI
 {
@@ -18,14 +17,14 @@ namespace Techyard.Revit.UI
         public static IEnumerable<Element> SelectMany(this Selection selection, Document document,
             Func<Element, bool> filter = null)
         {
-            return selection.PickObjects(ObjectType.Element | ObjectType.LinkedElement, new SelectionFilter(filter))
-                .Select(reference => reference.ToElement(document));
+            return selection.PickObjects(ObjectType.Element, new SelectionFilter(filter))
+                .Select(document.GetElement);
         }
 
         public static Element SelectSingle(this Selection selection, Document document, Func<Element, bool> filter = null)
         {
-            return selection.PickObject(ObjectType.Element | ObjectType.LinkedElement, new SelectionFilter(filter))
-                .ToElement(document);
+            return document.GetElement(selection.PickObject(ObjectType.Element,
+                new SelectionFilter(filter)));
         }
 
         private class SelectionFilter : ISelectionFilter

@@ -11,14 +11,14 @@ namespace Techyard.Revit.Database
             return element.Document.GetElement(element.GetTypeId()) as ElementType;
         }
 
-        internal static T ReadData<T>(this Element element, Schema schema, string fieldName)
+        public static T ReadData<T>(this Element element, Schema schema, string fieldName)
         {
             var field = schema.GetField(fieldName);
             var entity = element.GetEntity(schema);
             return entity.IsValid() ? entity.Get<T>(field) : default(T);
         }
 
-        internal static bool WriteData<T>(this Element element, Schema schema, string fieldName, T data,
+        public static bool WriteData<T>(this Element element, Schema schema, string fieldName, T data,
             bool withTransaction = true)
             where T : class
         {

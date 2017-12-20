@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Techyard.Revit</RootNamespace>
-    <AssemblyName>RevitAPIToolbox2015</AssemblyName>
+    <AssemblyName>RevitAPIToolbox</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\RevitAPIToolbox\Attributes\SchemaAttribute.cs">
+      <Link>Attributes\SchemaAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Attributes\SchemaFieldAttribute.cs">
+      <Link>Attributes\SchemaFieldAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\revitapitoolbox\attributes\TargetTypeAttribute.cs">
       <Link>Attributes\TargetTypeAttribute.cs</Link>
     </Compile>
@@ -92,6 +98,9 @@
     <Compile Include="..\revitapitoolbox\database\DocumentExtension.cs">
       <Link>Database\DocumentExtension.cs</Link>
     </Compile>
+    <Compile Include="..\RevitAPIToolbox\Database\ElementExtension.cs">
+      <Link>Database\ElementExtension.cs</Link>
+    </Compile>
     <Compile Include="..\revitapitoolbox\database\FamilyExtension.cs">
       <Link>Database\FamilyExtension.cs</Link>
     </Compile>
@@ -104,19 +113,41 @@
     <Compile Include="..\RevitAPIToolbox\Database\XYZExtension.cs">
       <Link>Database\XYZExtension.cs</Link>
     </Compile>
-    <Compile Include="..\revitapitoolbox\implementations\curvedivide\ControlledCurveDivider.cs">
-      <Link>Implementations\CurveDivide\ControlledCurveDivider.cs</Link>
+    <Compile Include="..\revitapitoolbox\exceptions\SchemaNotDefinedWithAttributeException.cs">
+      <Link>Exceptions\SchemaNotDefinedWithAttributeException.cs</Link>
     </Compile>
-    <Compile Include="..\revitapitoolbox\implementations\curvedivide\CurveDivider.cs">
-      <Link>Implementations\CurveDivide\CurveDivider.cs</Link>
+    <Compile Include="..\revitapitoolbox\geometry\FilteredGeometryCollector.cs">
+      <Link>Geometry\FilteredGeometryCollector.cs</Link>
     </Compile>
-    <Compile Include="..\revitapitoolbox\implementations\curvedivide\ICurveDivider.cs">
-      <Link>Implementations\CurveDivide\ICurveDivider.cs</Link>
+    <Compile Include="..\revitapitoolbox\geometry\GeometryClassFilter.cs">
+      <Link>Geometry\GeometryClassFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\geometry\GeometryElementExtension.cs">
+      <Link>Geometry\GeometryElementExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\geometry\GeometryInstanceExtension.cs">
+      <Link>Geometry\GeometryInstanceExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\geometry\IGeometryFilter.cs">
+      <Link>Geometry\IGeometryFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\CurveDivide\ControlledCurveDivider.cs">
+      <Link>Misc\CurveDivide\ControlledCurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\CurveDivide\CurveDivider.cs">
+      <Link>Misc\CurveDivide\CurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\Misc\CurveDivide\ICurveDivider.cs">
+      <Link>Misc\CurveDivide\ICurveDivider.cs</Link>
+    </Compile>
+    <Compile Include="..\revitapitoolbox\misc\schemadesigner\SchemaBase.cs">
+      <Link>Misc\SchemaDesigner\SchemaBase.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\UI\SelectionExtension.cs">
+      <Link>UI\SelectionExtension.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
