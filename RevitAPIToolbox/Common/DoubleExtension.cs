@@ -5,7 +5,7 @@ namespace Techyard.Revit.Common
     internal static class DoubleExtension
     {
         /// <summary>
-        ///     Translate a value in millimeter to revit internal unit
+        ///     Convert a value in millimeter to revit internal unit
         /// </summary>
         /// <param name="millimeter">Value in millimeter</param>
         /// <returns>Value in feet</returns>
@@ -15,7 +15,7 @@ namespace Techyard.Revit.Common
         }
 
         /// <summary>
-        ///     Translate a value in square millimeter to revit internal unit
+        ///     Convert a value in square millimeter to revit internal unit
         /// </summary>
         /// <param name="squareMillimeter">Value in square millimeter</param>
         /// <returns>Value in square feet</returns>
@@ -25,7 +25,7 @@ namespace Techyard.Revit.Common
         }
 
         /// <summary>
-        ///     Translate a value in cube millimeter to revit internal unit
+        ///     Convert a value in cube millimeter to revit internal unit
         /// </summary>
         /// <param name="cubeMillimeter">Value in cube millimeter</param>
         /// <returns>Value in cube feet</returns>
@@ -35,7 +35,7 @@ namespace Techyard.Revit.Common
         }
 
         /// <summary>
-        ///     Translate a value to revit internal unit
+        ///     Convert a value to revit internal unit
         /// </summary>
         /// <param name="display">Value</param>
         /// <param name="unit">Unit</param>

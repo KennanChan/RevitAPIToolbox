@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\SchemaAttribute.cs" />
+    <Compile Include="Attributes\SchemaFieldAttribute.cs" />
     <Compile Include="Attributes\TargetTypeAttribute.cs" />
     <Compile Include="Common\DoubleExtension.cs" />
     <Compile Include="Common\EnumerableExtension.cs" />
@@ -73,13 +75,17 @@
     <Compile Include="Common\ParameterizedExternalEventHandler.cs" />
     <Compile Include="Database\CurveExtension.cs" />
     <Compile Include="Database\DocumentExtension.cs" />
+    <Compile Include="Database\ElementExtension.cs" />
     <Compile Include="Database\FamilyExtension.cs" />
     <Compile Include="Database\PlaneExtension.cs" />
     <Compile Include="Database\ViewExtension.cs" />
     <Compile Include="Database\XYZExtension.cs" />
+    <Compile Include="Exceptions\SchemaNotDefinedWithAttributeException.cs" />
     <Compile Include="Misc\CurveDivide\ControlledCurveDivider.cs" />
     <Compile Include="Misc\CurveDivide\CurveDivider.cs" />
     <Compile Include="Misc\CurveDivide\ICurveDivider.cs" />
+    <Compile Include="Misc\SchemaDesigner\SchemaBase.cs" />
+    <Compile Include="Misc\SchemaDesigner\SchemaDesigner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
