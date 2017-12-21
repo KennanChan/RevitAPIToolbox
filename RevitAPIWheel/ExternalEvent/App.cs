@@ -24,10 +24,12 @@ namespace Techyard.Revit.Wheel.ExternalEvent
         /// <param name="e">Arguments to config the event</param>
         private static void Application_Idling(object sender, Autodesk.Revit.UI.Events.IdlingEventArgs e)
         {
+            //Internal method for the main process to get a raised external event handler to execute
+            var handler = ExternalEventWheel.TryGetEvent();
+            if (null == handler) return;
             var app = sender as UIApplication;
             if (null == app) return;
-            //Internal method for the main process to get a raised external event handler to execute
-            ExternalEventWheel.TryGetEvent()?.Execute(app);
+            handler.Execute(app);
         }
 
         public Result OnShutdown(UIControlledApplication application)
