@@ -1,6 +1,7 @@
 ﻿using System;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.ExtensibleStorage;
+using Techyard.Revit.Misc.SchemaDesigner;
 
 namespace Techyard.Revit.Database
 {
@@ -11,11 +12,41 @@ namespace Techyard.Revit.Database
             return element.Document.GetElement(element.GetTypeId()) as ElementType;
         }
 
+        public static T ReadData<T>(this Element element, T data) where T : SchemaBase
+        {
+            var schema = data.GetOrCreate();
+            var entity = element.GetEntity(schema);
+            data.ExtractData(entity);
+            return data;
+        }
+
         public static T ReadData<T>(this Element element, Schema schema, string fieldName)
         {
             var field = schema.GetField(fieldName);
             var entity = element.GetEntity(schema);
             return entity.IsValid() ? entity.Get<T>(field) : default(T);
+        }
+
+        public static bool WriteData<T>(this Element element, T data, bool withTransaction = true) where T : SchemaBase
+        {
+            Transaction transaction = null;
+            if (withTransaction)
+                transaction = new Transaction(element.Document, "Write entity");
+            try
+            {
+                transaction?.Start();
+                var schema = data.GetOrCreate();
+                var entity = element.GetEntity(schema);
+                data.FillData(entity);
+                element.SetEntity(entity);
+                transaction?.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                transaction?.RollBack();
+                return false;
+            }
         }
 
         public static bool WriteData<T>(this Element element, Schema schema, string fieldName, T data,

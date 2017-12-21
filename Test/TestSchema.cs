@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Script.Serialization;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -17,10 +18,10 @@ namespace Test
             var uiDocument = commandData.Application.ActiveUIDocument;
             var document = uiDocument.Document;
             var element = uiDocument.Selection.SelectSingle(document);
-            var mySchema = new CustomSchema();
-            element.WriteData(mySchema.GetOrCreate(), "Editor", "Kennan");
-            var editor = element.ReadData<string>(mySchema.GetOrCreate(), "Editor");
-            TaskDialog.Show("Editor", editor);
+            var mySchema = new CustomSchema { Editor = "Kennan", Age = 26 };
+            element.WriteData(mySchema);
+            var value = element.ReadData(mySchema);
+            TaskDialog.Show("Value", new JavaScriptSerializer().Serialize(value));
             return Result.Succeeded;
         }
     }
@@ -30,5 +31,8 @@ namespace Test
     {
         [SchemaField(Name = "Editor")]
         public string Editor { get; set; }
+
+        [SchemaField(Name = "Age")]
+        public int Age { get; set; }
     }
 }

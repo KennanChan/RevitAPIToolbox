@@ -97,6 +97,7 @@
     <Compile Include="Common\ExternalEventManager.cs" />
     <Compile Include="Common\Int32Extension.cs" />
     <Compile Include="Common\ParameterizedExternalEventHandler.cs" />
+    <Compile Include="Common\TypeExtension.cs" />
     <Compile Include="Database\CurveExtension.cs" />
     <Compile Include="Database\DocumentExtension.cs" />
     <Compile Include="Database\ElementExtension.cs" />
