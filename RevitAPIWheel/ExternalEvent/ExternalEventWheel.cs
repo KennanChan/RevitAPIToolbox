@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.UI;
 
 namespace Techyard.Revit.Wheel.ExternalEvent
 {
@@ -29,6 +31,57 @@ namespace Techyard.Revit.Wheel.ExternalEvent
         ///     <para>绑定到当前外部事件的处理程序</para>
         /// </summary>
         private IExternalEventHandlerWheel Handler { get; }
+
+        private static object _app;
+
+        /// <summary>
+        ///     Initialize external event system
+        /// </summary>
+        /// <param name="app"></param>
+        public static void Initialize(UIApplication app)
+        {
+            if (null != _app) return;
+            _app = app;
+            app.Idling += App_Idling;
+        }
+
+        /// <summary>
+        ///     Initialize external event system
+        /// </summary>
+        /// <param name="app"></param>
+        public static void Initialize(UIControlledApplication app)
+        {
+            if (null != _app) return;
+            _app = app;
+            app.Idling += App_Idling;
+        }
+
+        /// <summary>
+        ///     Stop the external event system
+        /// </summary>
+        public static void Destroy()
+        {
+            if (null == _app) return;
+            if (_app is UIApplication)
+                ((UIApplication)_app).Idling -= App_Idling;
+            else if (_app is UIControlledApplication)
+                ((UIControlledApplication)_app).Idling -= App_Idling;
+        }
+
+        /// <summary>
+        ///     <para>An event that revit signals repeatedly at idle time</para>
+        ///     <para>Revit在空闲时间反复调用的回调方法，当做 white(true){} 无限循环使用</para>
+        /// </summary>
+        /// <param name="sender">The revit UI level application</param>
+        /// <param name="e">Arguments to config the event</param>
+        private static void App_Idling(object sender, Autodesk.Revit.UI.Events.IdlingEventArgs e)
+        {
+            var handler = TryGetEvent();
+            if (null == handler) return;
+            var app = sender as UIApplication;
+            if (null == app) return;
+            handler.Execute(app);
+        }
 
         /// <summary>
         ///     <para>Create an external event to raise</para>
@@ -61,7 +114,7 @@ namespace Techyard.Revit.Wheel.ExternalEvent
         ///     <para>尝试获取一个待执行的处理程序</para>
         /// </summary>
         /// <returns>The first external event handler</returns>
-        internal static IExternalEventHandlerWheel TryGetEvent()
+        private static IExternalEventHandlerWheel TryGetEvent()
         {
             lock (Events)
             {
