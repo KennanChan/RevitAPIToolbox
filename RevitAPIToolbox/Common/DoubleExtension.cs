@@ -37,12 +37,23 @@ namespace Techyard.Revit.Common
         /// <summary>
         ///     Convert a value to revit internal unit
         /// </summary>
-        /// <param name="display">Value</param>
+        /// <param name="value">Value</param>
         /// <param name="unit">Unit</param>
         /// <returns>Value in revit internal unit</returns>
-        internal static double ToInternal(this double display, DisplayUnitType unit)
+        internal static double ToInternal(this double value, DisplayUnitType unit)
         {
-            return UnitUtils.ConvertToInternalUnits(display, unit);
+            return UnitUtils.ConvertToInternalUnits(value, unit);
+        }
+
+        /// <summary>
+        ///     Convert a value to revit display unit
+        /// </summary>
+        /// <param name="value">Value</param>
+        /// <param name="unit">Unit</param>
+        /// <returns>Value in revit internal unit</returns>
+        internal static double ToDisplay(this double value, DisplayUnitType unit)
+        {
+            return UnitUtils.ConvertFromInternalUnits(value, unit);
         }
     }
 }
