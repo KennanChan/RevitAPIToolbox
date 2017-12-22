@@ -20,7 +20,7 @@ namespace Test
             var element = uiDocument.Selection.SelectSingle(document);
             var mySchema = new CustomSchema { Editor = "Kennan", Age = 26 };
             element.WriteData(mySchema);
-            var value = element.ReadData(mySchema);
+            var value = element.ReadData(new CustomSchema());
             TaskDialog.Show("Value", new JavaScriptSerializer().Serialize(value));
             return Result.Succeeded;
         }
