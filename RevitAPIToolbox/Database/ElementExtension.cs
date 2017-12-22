@@ -36,13 +36,13 @@ namespace Techyard.Revit.Database
             {
                 transaction?.Start();
                 var schema = data.GetOrCreate();
-                var entity = element.GetEntity(schema);
+                var entity = new Entity(schema);
                 data.FillData(entity);
                 element.SetEntity(entity);
                 transaction?.Commit();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 transaction?.RollBack();
                 return false;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Techyard.Revit.Common
@@ -11,22 +12,38 @@ namespace Techyard.Revit.Common
         //        name,
         //        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
         //        null,
-        //        types, null);
+        //        types,
+        //        null);
         //}
 
-        //public static MethodInfo GetGenericMethod(this Type type, string name, params Type[] types)
+        //public static MethodInfo GetGenericMethod(this Type type, string name, Type[] genericTypes, Type[] paramTypes)
         //{
-        //    foreach (var mi in type.GetMethods
-        //        (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
-        //    {
-        //        if (mi.Name != name) continue;
-        //        if (!mi.IsGenericMethod) continue;
-        //        if (mi.GetGenericArguments().Length != types.Length) continue;
-
-        //        return mi.MakeGenericMethod(types);
-        //    }
-
-        //    throw new MissingMethodException();
+        //    var resultMethod = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+        //        .FirstOrDefault(method =>
+        //        {
+        //            if (method.Name != name) return false;
+        //            if (!method.IsGenericMethod) return false;
+        //            var genericArgs = method.GetGenericArguments();
+        //            if (genericArgs.Length != genericTypes.Length)
+        //                return false;
+        //            for (var i = 0; i < genericTypes.Length; i++)
+        //            {
+        //                if (genericArgs[i] != genericTypes[i])
+        //                    return false;
+        //            }
+        //            var parameters = method.GetParameters();
+        //            if (parameters.Length != paramTypes.Length)
+        //                return false;
+        //            for (var i = 0; i < paramTypes.Length; i++)
+        //            {
+        //                if (paramTypes[i] != parameters[i].ParameterType)
+        //                    return false;
+        //            }
+        //            return true;
+        //        })?.MakeGenericMethod(genericTypes);
+        //    if (null == resultMethod)
+        //        throw new MissingMethodException();
+        //    return resultMethod;
         //}
     }
 }

@@ -113,6 +113,9 @@
     <Compile Include="..\RevitAPIToolbox\Common\ParameterizedExternalEventHandler.cs">
       <Link>Common\ParameterizedExternalEventHandler.cs</Link>
     </Compile>
+    <Compile Include="..\RevitAPIToolbox\Common\TypeExtension.cs">
+      <Link>Common\TypeExtension.cs</Link>
+    </Compile>
     <Compile Include="..\RevitAPIToolbox\Database\CurveExtension.cs">
       <Link>Database\CurveExtension.cs</Link>
     </Compile>

@@ -14,6 +14,9 @@ namespace Techyard.Revit.Misc.SchemaDesigner
         private IDictionary<string, PropertyInfo> _properties;
         private IDictionary<string, FieldInfo> _fields;
         private SchemaAttribute _schema;
+        private Type _fieldType;
+        private MethodInfo _entityGet;
+        private MethodInfo _entitySet;
 
         private SchemaAttribute SchemaDefinition
         {
@@ -26,9 +29,57 @@ namespace Techyard.Revit.Misc.SchemaDesigner
                             .GetCustomAttributes(typeof(SchemaAttribute), false)
                             .Cast<SchemaAttribute>()
                             .FirstOrDefault();
-                    _schema = schemaDefinition ?? throw new SchemaNotDefinedWithAttributeException();
+                    _schema = schemaDefinition;
+                    if (null == _schema)
+                        throw new SchemaNotDefinedWithAttributeException();
                 }
                 return _schema;
+            }
+        }
+
+        private Type FieldType => _fieldType ?? (_fieldType = typeof(Entity).Assembly.GetType("FieldType"));
+
+        private MethodInfo EntityGet
+        {
+            get
+            {
+                if (null == _entityGet)
+                {
+                    var type = typeof(Entity);
+                    _entityGet = type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                        .FirstOrDefault(method =>
+                        {
+                            if (method.Name != "Get") return false;
+                            if (!method.IsGenericMethod) return false;
+                            var parameters = method.GetParameters();
+                            if (parameters.Length != 1)
+                                return false;
+                            return typeof(string) == parameters[0].ParameterType;
+                        });
+                }
+                return _entityGet;
+            }
+        }
+
+        private MethodInfo EntitySet
+        {
+            get
+            {
+                if (null == _entitySet)
+                {
+                    var type = typeof(Entity);
+                    _entitySet = type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                        .FirstOrDefault(method =>
+                        {
+                            if (method.Name != "Set") return false;
+                            if (!method.IsGenericMethod) return false;
+                            var parameters = method.GetParameters();
+                            if (parameters.Length != 2)
+                                return false;
+                            return typeof(string) == parameters[0].ParameterType;
+                        });
+                }
+                return _entitySet;
             }
         }
 
@@ -86,36 +137,40 @@ namespace Techyard.Revit.Misc.SchemaDesigner
             return builder.Finish();
         }
 
+        /// <summary>
+        ///     Extract data from the Entity object to current object
+        /// </summary>
+        /// <param name="entity"></param>
         internal void ExtractData(Entity entity)
         {
             Properties.Keys.ToList().ForEach(key =>
             {
                 var property = Properties[key];
-                var value = typeof(Entity).GetMethod("Get", new[] { typeof(string) })
-                    ?.MakeGenericMethod(property.PropertyType)
-                    .Invoke(entity, new object[] { key });
+                var genericMethod = EntityGet?.MakeGenericMethod(property.PropertyType);
+                var value = genericMethod?.Invoke(entity, new object[] { key });
                 property.SetValue(this, value, null);
             });
 
             Fields.Keys.ToList().ForEach(key =>
             {
                 var field = Fields[key];
-                var value = typeof(Entity).GetMethod("Get", new[] { typeof(string) })?.MakeGenericMethod(field.FieldType)
-                    .Invoke(entity, new object[] { key });
+                var genericMethod = EntityGet?.MakeGenericMethod(field.FieldType);
+                var value = genericMethod?.Invoke(entity, new object[] { key });
                 field.SetValue(this, value);
             });
         }
 
+        /// <summary>
+        ///     Fill data of current object to the Entity object
+        /// </summary>
+        /// <param name="entity"></param>
         internal void FillData(Entity entity)
         {
             Properties.Keys.ToList().ForEach(key =>
             {
                 var property = Properties[key];
                 var value = property.GetValue(this, null);
-                var method = typeof(Entity).GetMethod("Set",
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                    null, new[] { typeof(string) }, null);
-                var genericMethod = method?.MakeGenericMethod(property.PropertyType);
+                var genericMethod = EntitySet?.MakeGenericMethod(property.PropertyType);
                 genericMethod?.Invoke(entity, new[] { key, value });
             });
 
@@ -123,10 +178,7 @@ namespace Techyard.Revit.Misc.SchemaDesigner
             {
                 var field = Fields[key];
                 var value = field.GetValue(this);
-                var method = typeof(Entity).GetMethod("Set",
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                    null, new[] { typeof(string) }, null);
-                var genericMethod = method?.MakeGenericMethod(field.FieldType);
+                var genericMethod = EntitySet?.MakeGenericMethod(field.FieldType);
                 genericMethod?.Invoke(entity, new[] { key, value });
             });
         }
