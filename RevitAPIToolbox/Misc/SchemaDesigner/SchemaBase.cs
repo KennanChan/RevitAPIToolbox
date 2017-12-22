@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Autodesk.Revit.DB.ExtensibleStorage;
 using Techyard.Revit.Attributes;
-using Techyard.Revit.Common;
 using Techyard.Revit.Exceptions;
 
 namespace Techyard.Revit.Misc.SchemaDesigner
@@ -113,7 +112,7 @@ namespace Techyard.Revit.Misc.SchemaDesigner
         ///     Get or create the schema from class definition
         /// </summary>
         /// <returns></returns>
-        public Schema GetOrCreate()
+        public Schema GetOrCreateSchema()
         {
             var schema = Schema.Lookup(SchemaId);
             if (null != schema)

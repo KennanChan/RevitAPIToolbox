@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Script.Serialization;
+﻿using System.Web.Script.Serialization;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;

@@ -14,7 +14,7 @@ namespace Techyard.Revit.Database
 
         public static T ReadData<T>(this Element element, T data) where T : SchemaBase
         {
-            var schema = data.GetOrCreate();
+            var schema = data.GetOrCreateSchema();
             var entity = element.GetEntity(schema);
             data.ExtractData(entity);
             return data;
@@ -35,7 +35,7 @@ namespace Techyard.Revit.Database
             try
             {
                 transaction?.Start();
-                var schema = data.GetOrCreate();
+                var schema = data.GetOrCreateSchema();
                 var entity = new Entity(schema);
                 data.FillData(entity);
                 element.SetEntity(entity);
