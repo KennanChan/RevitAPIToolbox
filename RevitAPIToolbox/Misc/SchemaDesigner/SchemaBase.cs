@@ -13,7 +13,6 @@ namespace Techyard.Revit.Misc.SchemaDesigner
         private IDictionary<string, PropertyInfo> _properties;
         private IDictionary<string, FieldInfo> _fields;
         private SchemaAttribute _schema;
-        private Type _fieldType;
         private MethodInfo _entityGet;
         private MethodInfo _entitySet;
 
@@ -35,8 +34,6 @@ namespace Techyard.Revit.Misc.SchemaDesigner
                 return _schema;
             }
         }
-
-        private Type FieldType => _fieldType ?? (_fieldType = typeof(Entity).Assembly.GetType("FieldType"));
 
         private MethodInfo EntityGet
         {
