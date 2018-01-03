@@ -102,6 +102,7 @@
     <Compile Include="Database\DocumentExtension.cs" />
     <Compile Include="Database\ElementExtension.cs" />
     <Compile Include="Database\FamilyExtension.cs" />
+    <Compile Include="Database\FamilyManagerExtension.cs" />
     <Compile Include="Database\ParameterExtension.cs" />
     <Compile Include="Database\PlaneExtension.cs" />
     <Compile Include="Database\ViewExtension.cs" />

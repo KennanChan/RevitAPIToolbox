@@ -10,8 +10,8 @@ namespace Techyard.Revit.Misc.SchemaDesigner
 {
     public abstract class SchemaBase
     {
-        private IDictionary<string, PropertyInfo> _properties;
-        private IDictionary<string, FieldInfo> _fields;
+        private List<Tuple<string, PropertyInfo>> _properties;
+        private List<Tuple<string, FieldInfo>> _fields;
         private SchemaAttribute _schema;
         private MethodInfo _entityGet;
         private MethodInfo _entitySet;
@@ -35,6 +35,9 @@ namespace Techyard.Revit.Misc.SchemaDesigner
             }
         }
 
+        /// <summary>
+        ///     Get metadata of Autodesk.DB.ExtensibleStorage.Get<T>(string name) method
+        /// </summary>
         private MethodInfo EntityGet
         {
             get
@@ -57,6 +60,9 @@ namespace Techyard.Revit.Misc.SchemaDesigner
             }
         }
 
+        /// <summary>
+        ///     Get metadata of Autodesk.DB.ExtensibleStorage.Set<T>(string name,T value) method
+        /// </summary>
         private MethodInfo EntitySet
         {
             get
@@ -83,27 +89,30 @@ namespace Techyard.Revit.Misc.SchemaDesigner
 
         private string SchemaName => SchemaDefinition.Name;
 
-        private IDictionary<string, PropertyInfo> Properties =>
+        /// <summary>
+        ///     Cache property metadata of user-difined schema
+        /// </summary>
+        private List<Tuple<string, PropertyInfo>> Properties =>
             _properties ??
             (_properties = GetType()
                 .GetProperties()
-                .ToDictionary(p => p,
-                    p => p.GetCustomAttributes(typeof(SchemaFieldAttribute), false)
+                .Select(
+                    p => new Tuple<string, PropertyInfo>(p.GetCustomAttributes(typeof(SchemaFieldAttribute), false)
                         .Cast<SchemaFieldAttribute>()
-                        .FirstOrDefault()?.Name)
-                .Where(pp => pp.Value != null)
-                .ToDictionary(pp => pp.Value, pp => pp.Key));
+                        .FirstOrDefault()?.Name, p))
+                .Where(pp => pp.Item1 != null)
+                .ToList());
 
-        private IDictionary<string, FieldInfo> Fields =>
+        private List<Tuple<string, FieldInfo>> Fields =>
             _fields ??
             (_fields = GetType()
                 .GetFields()
-                .ToDictionary(f => f,
-                    f => f.GetCustomAttributes(typeof(SchemaFieldAttribute), false)
+                .Select(
+                    f => new Tuple<string, FieldInfo>(f.GetCustomAttributes(typeof(SchemaFieldAttribute), false)
                         .Cast<SchemaFieldAttribute>()
-                        .FirstOrDefault()?.Name)
-                .Where(fp => fp.Value != null)
-                .ToDictionary(fp => fp.Value, fp => fp.Key));
+                        .FirstOrDefault()?.Name, f))
+                .Where(fp => fp.Item1 != null)
+                .ToList());
 
         /// <summary>
         ///     Get or create the schema from class definition
@@ -121,14 +130,14 @@ namespace Techyard.Revit.Misc.SchemaDesigner
             Properties.ToList()
                 .ForEach(pp =>
                 {
-                    builder.AddSimpleField(pp.Key, pp.Value.PropertyType);
+                    builder.AddSimpleField(pp.Item1, pp.Item2.PropertyType);
                 });
 
             //Get all attributed fields to build the schema
             Fields.ToList()
                 .ForEach(fp =>
                 {
-                    builder.AddSimpleField(fp.Key, fp.Value.FieldType);
+                    builder.AddSimpleField(fp.Item1, fp.Item2.FieldType);
                 });
             return builder.Finish();
         }
@@ -139,19 +148,21 @@ namespace Techyard.Revit.Misc.SchemaDesigner
         /// <param name="entity"></param>
         internal void ExtractData(Entity entity)
         {
-            Properties.Keys.ToList().ForEach(key =>
+            Properties.ForEach(tuple =>
             {
-                var property = Properties[key];
+                var name = tuple.Item1;
+                var property = tuple.Item2;
                 var genericMethod = EntityGet?.MakeGenericMethod(property.PropertyType);
-                var value = genericMethod?.Invoke(entity, new object[] { key });
+                var value = genericMethod?.Invoke(entity, new object[] { name });
                 property.SetValue(this, value, null);
             });
 
-            Fields.Keys.ToList().ForEach(key =>
+            Fields.ForEach(tuple =>
             {
-                var field = Fields[key];
+                var name = tuple.Item1;
+                var field = tuple.Item2;
                 var genericMethod = EntityGet?.MakeGenericMethod(field.FieldType);
-                var value = genericMethod?.Invoke(entity, new object[] { key });
+                var value = genericMethod?.Invoke(entity, new object[] { name });
                 field.SetValue(this, value);
             });
         }
@@ -162,20 +173,22 @@ namespace Techyard.Revit.Misc.SchemaDesigner
         /// <param name="entity"></param>
         internal void FillData(Entity entity)
         {
-            Properties.Keys.ToList().ForEach(key =>
+            Properties.ForEach(tuple =>
             {
-                var property = Properties[key];
+                var name = tuple.Item1;
+                var property = tuple.Item2;
                 var value = property.GetValue(this, null);
                 var genericMethod = EntitySet?.MakeGenericMethod(property.PropertyType);
-                genericMethod?.Invoke(entity, new[] { key, value });
+                genericMethod?.Invoke(entity, new[] { name, value });
             });
 
-            Fields.Keys.ToList().ForEach(key =>
+            Fields.ForEach(tuple =>
             {
-                var field = Fields[key];
+                var name = tuple.Item1;
+                var field = tuple.Item2;
                 var value = field.GetValue(this);
                 var genericMethod = EntitySet?.MakeGenericMethod(field.FieldType);
-                genericMethod?.Invoke(entity, new[] { key, value });
+                genericMethod?.Invoke(entity, new[] { name, value });
             });
         }
     }

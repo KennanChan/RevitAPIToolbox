@@ -42,7 +42,7 @@ namespace Techyard.Revit.Database
                 transaction?.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 transaction?.RollBack();
                 return false;

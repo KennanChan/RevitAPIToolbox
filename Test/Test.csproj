@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawEdge.cs" />
     <Compile Include="TestExternalEventHandler.cs" />
     <Compile Include="TestGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
