@@ -162,8 +162,20 @@
     <Compile Include="..\revitapitoolbox\misc\schemadesigner\SchemaBase.cs">
       <Link>Misc\SchemaDesigner\SchemaBase.cs</Link>
     </Compile>
+    <Compile Include="..\RevitAPIToolbox\UI\ControlUtility.cs">
+      <Link>UI\ControlUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\UI\RibbonCommandItemMixin.cs">
+      <Link>UI\RibbonCommandItemMixin.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\UI\RibbonItemMixin.cs">
+      <Link>UI\RibbonItemMixin.cs</Link>
+    </Compile>
     <Compile Include="..\RevitAPIToolbox\UI\SelectionExtension.cs">
       <Link>UI\SelectionExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\RevitAPIToolbox\UI\UIFactory.cs">
+      <Link>UI\UIFactory.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
