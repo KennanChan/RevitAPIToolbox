@@ -14,6 +14,27 @@ namespace Techyard.Revit.Database
         /// <param name="elements">A collection of elements to hide</param>
         public static void HideElementsInView(this View view, IEnumerable<Element> elements)
         {
+            view.HideElementsInView(elements, true);
+        }
+
+        /// <summary>
+        ///     Hide a collection of elements in a specific view
+        /// </summary>
+        /// <param name="view">A view where the elements is to hide</param>
+        /// <param name="elements">A collection of elements to hide</param>
+        public static void ShowElementsInView(this View view, IEnumerable<Element> elements)
+        {
+            view.HideElementsInView(elements, false);
+        }
+
+        /// <summary>
+        ///     Hide a collection of elements in a specific view
+        /// </summary>
+        /// <param name="view">A view where the elements is to hide</param>
+        /// <param name="elements">A collection of elements to hide</param>
+        /// <param name="hide">Hide or show</param>
+        private static void HideElementsInView(this View view, IEnumerable<Element> elements, bool hide)
+        {
             try
             {
                 if (null == view)
@@ -28,7 +49,10 @@ namespace Techyard.Revit.Database
                 using (var transaction = new Transaction(document, "Hide Elements"))
                 {
                     transaction.Start();
-                    view.HideElements(elementsToHide);
+                    if (hide)
+                        view.HideElements(elementsToHide);
+                    else
+                        view.UnhideElements(elementsToHide);
                     transaction.Commit();
                 }
             }

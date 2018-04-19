@@ -29,22 +29,23 @@ namespace Techyard.Revit.Database
 
         public static bool WriteData<T>(this Element element, T data, bool withTransaction = true) where T : SchemaBase
         {
-            Transaction transaction = null;
-            if (withTransaction)
-                transaction = new Transaction(element.Document, "Write entity");
-            try
+            var action = new Action(() =>
             {
-                transaction?.Start();
                 var schema = data.GetOrCreateSchema();
                 var entity = new Entity(schema);
                 data.FillData(entity);
                 element.SetEntity(entity);
-                transaction?.Commit();
+            });
+            try
+            {
+                if (withTransaction)
+                    return element.Document.Modify(action, "Write entity");
+                action();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                transaction?.RollBack();
+                Console.WriteLine(e);
                 return false;
             }
         }
@@ -53,22 +54,23 @@ namespace Techyard.Revit.Database
             bool withTransaction = true)
             where T : class
         {
-            Transaction transaction = null;
-            if (withTransaction)
-                transaction = new Transaction(element.Document, $"Write entity:{fieldName}={data}");
-            try
+            var action = new Action(() =>
             {
-                transaction?.Start();
                 var entity = new Entity(schema);
                 var field = schema.GetField(fieldName);
                 entity.Set(field, data);
                 element.SetEntity(entity);
-                transaction?.Commit();
+            });
+            try
+            {
+                if (withTransaction)
+                    return element.Document.Modify(action, "Write entity");
+                action();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                transaction?.RollBack();
+                Console.WriteLine(e);
                 return false;
             }
         }
