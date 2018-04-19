@@ -25,7 +25,6 @@ namespace Techyard.Revit.UI
                 Title = tabName,
                 Id = tabName
             };
-            MoveTab(tab, "Add-Ins");
             return tab;
         }
 
@@ -41,21 +40,6 @@ namespace Techyard.Revit.UI
         {
             var tab = FindTab(tabName, true);
             tab.Theme.TabHeaderBackground = new SolidColorBrush(color);
-        }
-
-        private void MoveTab(RibbonTab targetTab, string frontTabId)
-        {
-            if (null == targetTab) return;
-            var frontTab = ComponentManager.Ribbon.FindTab(frontTabId);
-            if (null == frontTab)
-            {
-                ComponentManager.Ribbon.Tabs.Add(targetTab);
-            }
-            else
-            {
-                var index = ComponentManager.Ribbon.Tabs.IndexOf(frontTab);
-                ComponentManager.Ribbon.Tabs.Insert(index + 1, targetTab);
-            }
         }
 
         internal RibbonPanel CreatePanel(string tabName, string panelName)
