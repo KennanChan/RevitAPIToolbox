@@ -9,13 +9,13 @@ using Autodesk.Windows;
 
 namespace Techyard.Revit.UI
 {
-    internal class UIFactory
+    public class UIFactory
     {
         private UIFactory()
         {
         }
 
-        internal static UIFactory Factory { get; } = new UIFactory();
+        public static UIFactory Factory { get; } = new UIFactory();
 
         private RibbonTab CreateTab(string tabName)
         {
@@ -28,7 +28,7 @@ namespace Techyard.Revit.UI
             return tab;
         }
 
-        internal RibbonTab FindTab(string tabName, bool createIfAbsent = false)
+        public RibbonTab FindTab(string tabName, bool createIfAbsent = false)
         {
             var tab = ComponentManager.Ribbon.Tabs.FirstOrDefault(t => t.Title.Equals(tabName));
             if (null == tab && createIfAbsent)
@@ -36,13 +36,13 @@ namespace Techyard.Revit.UI
             return tab;
         }
 
-        internal void SetTabColor(string tabName, Color color)
+        public void SetTabColor(string tabName, Color color)
         {
             var tab = FindTab(tabName, true);
             tab.Theme.TabHeaderBackground = new SolidColorBrush(color);
         }
 
-        internal RibbonPanel CreatePanel(string tabName, string panelName)
+        public RibbonPanel CreatePanel(string tabName, string panelName)
         {
             var tab = FindTab(tabName, true);
             var panel = new RibbonPanel
@@ -58,7 +58,7 @@ namespace Techyard.Revit.UI
             return panel;
         }
 
-        internal RibbonPanel FindPanel(string tabName, string panelName, bool createIfAbsent = false)
+        public RibbonPanel FindPanel(string tabName, string panelName, bool createIfAbsent = false)
         {
             var tab = FindTab(tabName, createIfAbsent);
             var panel = tab?.Panels.FirstOrDefault(p => p.Source.Name.Equals(panelName));
@@ -67,7 +67,7 @@ namespace Techyard.Revit.UI
             return panel;
         }
 
-        internal T CreateItem<T>(string tabName, string panelName, string itemName, Action<T> callback = null)
+        public T CreateItem<T>(string tabName, string panelName, string itemName, Action<T> callback = null)
             where T : RibbonItem
         {
             var panel = FindPanel(tabName, panelName, true);
@@ -79,14 +79,14 @@ namespace Techyard.Revit.UI
             return item;
         }
 
-        internal T CreateItem<T>(string itemName) where T : RibbonItem
+        public T CreateItem<T>(string itemName) where T : RibbonItem
         {
             var item = Activator.CreateInstance<T>();
             item.Name = itemName;
             return item;
         }
 
-        internal T FindItem<T>(string tabName, string panelName, string itemName, bool createIfAbsent = false)
+        public T FindItem<T>(string tabName, string panelName, string itemName, bool createIfAbsent = false)
             where T : RibbonItem
         {
             var panel = FindPanel(tabName, panelName, true);
