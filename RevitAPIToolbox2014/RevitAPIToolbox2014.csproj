@@ -102,6 +102,9 @@
     <Compile Include="..\RevitAPIToolbox\Attributes\TargetTypeAttribute.cs">
       <Link>Attributes\TargetTypeAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\RevitAPIToolbox\Common\DelegateExternalEventHandler.cs">
+      <Link>Common\DelegateExternalEventHandler.cs</Link>
+    </Compile>
     <Compile Include="..\RevitAPIToolbox\Common\DoubleExtension.cs">
       <Link>Common\DoubleExtension.cs</Link>
     </Compile>

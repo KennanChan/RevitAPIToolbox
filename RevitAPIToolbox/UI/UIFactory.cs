@@ -79,10 +79,11 @@ namespace Techyard.Revit.UI
             return item;
         }
 
-        public T CreateItem<T>(string itemName) where T : RibbonItem
+        public T CreateItem<T>(string itemName, Action<T> callback) where T : RibbonItem
         {
             var item = Activator.CreateInstance<T>();
             item.Name = itemName;
+            callback?.Invoke(item);
             return item;
         }
 

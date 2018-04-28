@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Autodesk.Revit.UI;
 
 namespace Techyard.Revit.Common
 {
+    [Obsolete("This class is deprecated, use DelegateExternalEventHandler<T> instead")]
     public abstract class ParameterizedExternalEventHandler<T> : IExternalEventHandler
     {
         private static Queue<T> Parameters { get; } = new Queue<T>();

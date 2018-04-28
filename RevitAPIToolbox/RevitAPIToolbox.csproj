@@ -96,6 +96,7 @@
     <Compile Include="Attributes\SchemaAttribute.cs" />
     <Compile Include="Attributes\SchemaFieldAttribute.cs" />
     <Compile Include="Attributes\TargetTypeAttribute.cs" />
+    <Compile Include="Common\DelegateExternalEventHandler.cs" />
     <Compile Include="Common\DoubleExtension.cs" />
     <Compile Include="Common\EnumerableExtension.cs" />
     <Compile Include="Common\ExternalEventManager.cs" />
